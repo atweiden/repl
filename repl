@@ -7,11 +7,19 @@
 # ==============================================================================
 # constants {{{
 
-# launch repl in this language by default
+# $REPL_HOME contains path to directory for files produced through the
+# use of this script
+readonly REPL_HOME="$HOME/.config/repl"
+
+# $REPL_LANG_DEFAULT contains language with which to launch repl in
+# by default
 readonly REPL_LANG_DEFAULT='raku'
+
+# $REPL_LANG contains language with which to launch repl in, customizable
+# via environment variable
 readonly REPL_LANG="${REPL_LANG:-$REPL_LANG_DEFAULT}"
 
-# repl version number
+# $VERSION contains repl version number
 readonly VERSION=0.0.1
 
 # end constants }}}
@@ -39,11 +47,10 @@ Language
   | ocaml
   | raku
 
-Arguments
-  Distinguish arguments passed to launched repl from arguments passed
-  to this script with --, e.g.
+Examples
 
-      repl --language elixir -- -S mix
+    # launch readline-aware iex -S mix
+    repl --language elixir -- -S mix
 EOF
 echo "$_usage_string"
 }
@@ -60,6 +67,18 @@ _repl_lang=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --)
+      shift
+      # process args for dispatch to launched language repl
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          *)
+            _POSITIONAL+=("$1")
+            shift
+            ;;
+        esac
+      done
+      ;;
     -h|--help)
       _usage
       exit 0
@@ -77,10 +96,6 @@ while [[ $# -gt 0 ]]; do
       # unknown option
       _usage
       exit 1
-      ;;
-    *)
-      _POSITIONAL+=("$1")
-      shift
       ;;
   esac
 done
@@ -152,22 +167,22 @@ case "$_repl_lang" in
     _file_extension='.scm'
     _is_kebab_case=true
     _is_lisp=true
-    _repl_completions_file="$HOME/.config/chicken/rlwrap/completions"
-    _repl_history_file="$HOME/.config/chicken/rlwrap/history"
+    _repl_completions_file="$REPL_HOME/chicken/completions"
+    _repl_history_file="$REPL_HOME/chicken/history"
     _repl_launch_command='csi -quiet'
     ;;
   elixir)
     _file_extension='.ex'
-    _repl_completions_file="$HOME/.config/elixir/rlwrap/completions"
-    _repl_history_file="$HOME/.config/elixir/rlwrap/history"
+    _repl_completions_file="$REPL_HOME/elixir/completions"
+    _repl_history_file="$REPL_HOME/elixir/history"
     _repl_launch_command='iex'
     _rlwrap_opts+=('--ansi-colour-aware')
     _rlwrap_opts+=('--always-readline')
     ;;
   erlang)
     _file_extension='.erl'
-    _repl_completions_file="$HOME/.config/erlang/rlwrap/completions"
-    _repl_history_file="$HOME/.config/erlang/rlwrap/history"
+    _repl_completions_file="$REPL_HOME/erlang/completions"
+    _repl_history_file="$REPL_HOME/erlang/history"
     _repl_launch_command='erl'
     _rlwrap_opts+=('--ansi-colour-aware')
     _rlwrap_opts+=('--always-readline')
@@ -176,24 +191,34 @@ case "$_repl_lang" in
     _file_extension='.janet'
     _is_kebab_case=true
     _is_lisp=true
-    _repl_completions_file="$HOME/.config/janet/rlwrap/completions"
-    _repl_history_file="$HOME/.config/janet/rlwrap/history"
+    _repl_completions_file="$REPL_HOME/janet/completions"
+    _repl_history_file="$REPL_HOME/janet/history"
     _repl_launch_command='janet -s'
     ;;
   ocaml)
     _file_extension='.ml'
-    _repl_completions_file="$HOME/.config/ocaml/rlwrap/completions"
-    _repl_history_file="$HOME/.config/ocaml/rlwrap/history"
+    _repl_completions_file="$REPL_HOME/ocaml/completions"
+    _repl_history_file="$REPL_HOME/ocaml/history"
     _repl_launch_command='ocaml'
     ;;
   raku)
     _file_extension='.raku'
     _is_kebab_case=true
-    _repl_completions_file="$HOME/.config/raku/rlwrap/completions"
-    _repl_history_file="$HOME/.config/raku/rlwrap/history"
+    _repl_completions_file="$REPL_HOME/raku/completions"
+    _repl_history_file="$REPL_HOME/raku/history"
     _repl_launch_command='raku'
     ;;
 esac
+
+setup() {
+  for _file in "$_repl_completions_file" \
+               "$_repl_history_file"; do
+    mkdir -p "$(dirname "$_file")"
+    touch "$_file"
+  done
+}
+
+setup
 
 _break_characters+='('
 _break_characters+=')'
@@ -246,7 +271,7 @@ _rlwrap_opts+=('--multi-line')
 _rlwrap_opts+=('--multi-line-ext'
                "$_file_extension")
 
-rlwrap "${_rlwrap_opts[@]}" $_repl_launch_command $@
+rlwrap "${_rlwrap_opts[@]}" -- $_repl_launch_command $@
 }
 
 main "$@"
