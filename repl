@@ -228,18 +228,23 @@ if [[ -z "$_is_lisp" ]]; then
   _quote_characters+="'"
 fi
 
-_rlwrap_opts+=("--file \"$_repl_completions_file\"")
-_rlwrap_opts+=("--history-filename \"$_repl_history_file\"")
+_rlwrap_opts+=('--file'
+               "$_repl_completions_file")
+_rlwrap_opts+=('--history-filename'
+               "$_repl_history_file")
 # complete filenames (case-sensitive)
 _rlwrap_opts+=('--complete-filenames')
 # put all words seen on input and output on completion list
 _rlwrap_opts+=('--remember')
-_rlwrap_opts+=("--break-chars \"$_break_characters\"")
-_rlwrap_opts+=("--quote-chars \"$_quote_characters\"")
+_rlwrap_opts+=('--break-chars'
+               "$_break_characters")
+_rlwrap_opts+=('--quote-chars'
+               "$_quote_characters")
 # enable multi-line input using a newline substitute character sequence
 # (default: space-backslash-space)
 _rlwrap_opts+=('--multi-line')
-_rlwrap_opts+=("--multi-line-ext \"$_file_extension\"")
+_rlwrap_opts+=('--multi-line-ext'
+               "$_file_extension")
 
 rlwrap "${_rlwrap_opts[@]}" $_repl_launch_command $@
 }
