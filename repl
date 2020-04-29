@@ -238,7 +238,7 @@ _rlwrap_opts+=('--complete-filenames')
 _rlwrap_opts+=('--remember')
 _rlwrap_opts+=('--break-chars'
                "$_break_characters")
-_rlwrap_opts+=('--quote-chars'
+_rlwrap_opts+=('--quote-characters'
                "$_quote_characters")
 # enable multi-line input using a newline substitute character sequence
 # (default: space-backslash-space)
