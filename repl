@@ -209,6 +209,42 @@ case "$_repl_lang" in
     _repl_history_file="$REPL_HOME/janet/history"
     _repl_launch_command='janet -s'
     ;;
+  lua)
+    _file_extension='.lua'
+    _repl_completions_file="$REPL_HOME/lua/lua/completions"
+    _repl_history_file="$REPL_HOME/lua/lua/history"
+    _repl_launch_command='lua'
+    ;;
+  lua5.1)
+    _file_extension='.lua'
+    _repl_completions_file="$REPL_HOME/lua/lua5.1/completions"
+    _repl_history_file="$REPL_HOME/lua/lua5.1/history"
+    _repl_launch_command='lua5.1'
+    ;;
+  lua5.2)
+    _file_extension='.lua'
+    _repl_completions_file="$REPL_HOME/lua/lua5.2/completions"
+    _repl_history_file="$REPL_HOME/lua/lua5.2/history"
+    _repl_launch_command='lua5.2'
+    ;;
+  lua5.3)
+    _file_extension='.lua'
+    _repl_completions_file="$REPL_HOME/lua/lua5.3/completions"
+    _repl_history_file="$REPL_HOME/lua/lua5.3/history"
+    _repl_launch_command='lua5.3'
+    ;;
+  lua5.4)
+    _file_extension='.lua'
+    _repl_completions_file="$REPL_HOME/lua/lua5.4/completions"
+    _repl_history_file="$REPL_HOME/lua/lua5.4/history"
+    _repl_launch_command='lua5.4'
+    ;;
+  luajit)
+    _file_extension='.lua'
+    _repl_completions_file="$REPL_HOME/lua/luajit/completions"
+    _repl_history_file="$REPL_HOME/lua/luajit/history"
+    _repl_launch_command='luajit'
+    ;;
   ocaml)
     _file_extension='.ml'
     _repl_completions_file="$REPL_HOME/ocaml/completions"
