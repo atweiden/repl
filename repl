@@ -41,12 +41,16 @@ Options:
 Language
   List of acceptable languages:
   | chicken
+  | clozure
   | elixir
   | erlang
   | fennel
   | janet
+  | lua | lua5.1 | lua5.2 | lua5.3 | lua5.4 | luajit
   | ocaml
+  | racket
   | raku
+  | sbcl
 
 Examples
 
