@@ -177,6 +177,14 @@ case "$_repl_lang" in
     _repl_history_file="$REPL_HOME/chicken/history"
     _repl_launch_command='csi -quiet'
     ;;
+  clozure)
+    _file_extension='.lisp'
+    _is_kebab_case=true
+    _is_lisp=true
+    _repl_completions_file="$REPL_HOME/clozure/completions"
+    _repl_history_file="$REPL_HOME/clozure/history"
+    _repl_launch_command='ccl64'
+    ;;
   elixir)
     _file_extension='.ex'
     _repl_completions_file="$REPL_HOME/elixir/completions"
@@ -257,6 +265,14 @@ case "$_repl_lang" in
     _repl_completions_file="$REPL_HOME/raku/completions"
     _repl_history_file="$REPL_HOME/raku/history"
     _repl_launch_command='raku'
+    ;;
+  sbcl)
+    _file_extension='.lisp'
+    _is_kebab_case=true
+    _is_lisp=true
+    _repl_completions_file="$REPL_HOME/sbcl/completions"
+    _repl_history_file="$REPL_HOME/sbcl/history"
+    _repl_launch_command='sbcl'
     ;;
 esac
 
