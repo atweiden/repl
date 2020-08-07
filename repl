@@ -258,6 +258,7 @@ _break_characters+='$'
 _break_characters+='#'
 _break_characters+='@'
 _break_characters+=';'
+_break_characters+=':'
 _break_characters+='|'
 _break_characters+='\'
 
