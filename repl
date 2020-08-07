@@ -259,6 +259,14 @@ case "$_repl_lang" in
     _repl_history_file="$REPL_HOME/ocaml/history"
     _repl_launch_command='ocaml'
     ;;
+  racket)
+    _file_extension='.rkt'
+    _is_kebab_case=true
+    _is_lisp=true
+    _repl_completions_file="$REPL_HOME/racket/completions"
+    _repl_history_file="$REPL_HOME/racket/history"
+    _repl_launch_command='racket --repl'
+    ;;
   raku)
     _file_extension='.raku'
     _is_kebab_case=true
