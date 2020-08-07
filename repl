@@ -20,7 +20,7 @@ readonly REPL_LANG_DEFAULT='raku'
 readonly REPL_LANG="${REPL_LANG:-$REPL_LANG_DEFAULT}"
 
 # $VERSION contains repl version number
-readonly VERSION=0.0.1
+readonly VERSION=0.0.2
 
 # end constants }}}
 # ==============================================================================
